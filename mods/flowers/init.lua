@@ -31,6 +31,7 @@ minetest.register_alias("flowers:flower_viola", "flowers:viola")
 minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
 
 
+
 -- Flower registration
 
 local function add_simple_flower(name, desc, box, f_groups)
@@ -52,7 +53,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 		walkable = false,
 		buildable_to = true,
 		groups = f_groups,
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = mtg_basic_sounds.node_sound_leaves(),
 		selection_box = {
 			type = "fixed",
 			fixed = box
@@ -120,6 +121,12 @@ end
 -- Public function to enable override by mods
 
 function flowers.flower_spread(pos, node)
+
+	-- Check for Aliases of nodes external to mod
+	local sand = minetest.registered_aliases["mtg_basic_env:sand"] or "mtg_basic_env:sand"
+	local sand_desert = minetest.registered_aliases["mtg_basic_env:desert_sand"] or "mtg_basic_env:desert_sand"
+	local shrub_dry = minetest.registered_aliases["mtg_decor_simple:dry_shrub"] or "mtg_decor_simple:dry_shrub"
+
 	pos.y = pos.y - 1
 	local under = minetest.get_node(pos)
 	pos.y = pos.y + 1
@@ -127,8 +134,8 @@ function flowers.flower_spread(pos, node)
 	-- as this is the only way to generate them.
 	-- However, preserve grasses in sand dune biomes.
 	if minetest.get_item_group(under.name, "sand") == 1 and
-			under.name ~= "default:sand" then
-		minetest.set_node(pos, {name = "default:dry_shrub"})
+			under.name ~= sand then
+		minetest.set_node(pos, {name = shrub_dry})
 		return
 	end
 
@@ -160,9 +167,7 @@ function flowers.flower_spread(pos, node)
 			light = minetest.get_node_light(soil_above)
 			if light and light >= 13 and
 					-- Only spread to same surface node
-					soil_name == under.name and
-					-- Desert sand is in the soil group
-					soil_name ~= "default:desert_sand" then
+					soil_name == under.name then
 				minetest.set_node(soil_above, {name = node.name})
 			end
 		end
@@ -195,7 +200,7 @@ minetest.register_node("flowers:mushroom_red", {
 	walkable = false,
 	buildable_to = true,
 	groups = {mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = mtg_basic_sounds.node_sound_leaves(),
 	on_use = minetest.item_eat(-5),
 	selection_box = {
 		type = "fixed",
@@ -214,7 +219,7 @@ minetest.register_node("flowers:mushroom_brown", {
 	walkable = false,
 	buildable_to = true,
 	groups = {mushroom = 1, food_mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = mtg_basic_sounds.node_sound_leaves(),
 	on_use = minetest.item_eat(1),
 	selection_box = {
 		type = "fixed",
@@ -248,7 +253,7 @@ end
 
 minetest.register_abm({
 	label = "Mushroom spread",
-	nodenames = {"group:mushroom"},
+	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
 	chance = 150,
 	action = function(...)
@@ -279,13 +284,12 @@ local waterlily_def = {
 	tiles = {"flowers_waterlily.png", "flowers_waterlily_bottom.png"},
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
-	use_texture_alpha = "clip",
 	liquids_pointable = true,
 	walkable = false,
 	buildable_to = true,
 	floodable = true,
 	groups = {snappy = 3, flower = 1, flammable = 1},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = mtg_basic_sounds.node_sound_leaves(),
 	node_placement_prediction = "",
 	node_box = {
 		type = "fixed",
@@ -313,7 +317,8 @@ local waterlily_def = {
 				minetest.set_node(pos, {name = "flowers:waterlily" ..
 					(def.waving == 3 and "_waving" or ""),
 					param2 = math.random(0, 3)})
-				if not minetest.is_creative_enabled(player_name) then
+				if not (creative and creative.is_enabled_for
+						and creative.is_enabled_for(player_name)) then
 					itemstack:take_item()
 				end
 			else

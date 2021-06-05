@@ -1,0 +1,10 @@
+# textdomain: furnace
+Furnace=熔炉
+Furnace is empty=熔炉是空的
+Empty=空
+Furnace active=熔炉正在运转
+Furnace inactive=熔炉未使用
+Not cookable=不可烹饪
+100% (output full)=100％（输出已满）
+@1%=@1%
+(Item: @1; Fuel: @2)=（项目：@1;燃料：@2）

@@ -10,6 +10,11 @@ local butter_list = {
 	{"violet", S("Violet Butterfly")}
 }
 
+-- check for aliases
+local dirt_grass = minetest.registered_aliases["mtg_basic_env:dirt_with_grass"] or "mtg_basic_env:dirt_with_grass"
+
+local butterfly_biomes = {"grassland", "deciduous_forest"} -- Biomes butterflies appear in
+
 for i in ipairs (butter_list) do
 	local name = butter_list[i][1]
 	local desc = butter_list[i][2]
@@ -62,8 +67,8 @@ for i in ipairs (butter_list) do
 
 	minetest.register_node("butterflies:hidden_butterfly_"..name, {
 		drawtype = "airlike",
-		inventory_image = "butterflies_butterfly_"..name..".png^default_invisible_node_overlay.png",
-		wield_image =  "butterflies_butterfly_"..name..".png^default_invisible_node_overlay.png",
+		inventory_image = "butterflies_butterfly_"..name..".png",
+		wield_image =  "butterflies_butterfly_"..name..".png",
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -95,14 +100,15 @@ for i in ipairs (butter_list) do
 end
 
 -- register decoration
+
 minetest.register_decoration({
 	name = "butterflies:butterfly",
 	deco_type = "simple",
-	place_on = {"default:dirt_with_grass"},
+	place_on = {dirt_grass},
 	place_offset_y = 2,
 	sidelen = 80,
 	fill_ratio = 0.005,
-	biomes = {"grassland", "deciduous_forest"},
+	biomes = butterfly_biomes,
 	y_max = 31000,
 	y_min = 1,
 	decoration = {

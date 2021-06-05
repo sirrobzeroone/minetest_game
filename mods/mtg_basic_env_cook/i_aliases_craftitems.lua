@@ -1,0 +1,34 @@
+----------------------------------------------------
+--  ___         _                            _    --
+-- | __|_ ___ _(_)_ _ ___ _ _  _ __  ___ _ _| |_  --
+-- | _|| ' \ V / | '_/ _ \ ' \| '  \/ -_) ' \  _| --
+-- |___|_||_\_/|_|_| \___/_||_|_|_|_\___|_||_\__| --
+--          ___          _   _                    --
+--         / __|___  ___| |_(_)_ _  __ _          --
+--        | (__/ _ \/ _ \ / / | ' \/ _` |         --
+--         \___\___/\___/_\_\_|_||_\__, |         --
+--                                 |___/          --
+----------------------------------------------------
+--         MTG Basic Environment Cooking          --
+----------------------------------------------------
+--                  Craft Items                   --
+----------------------------------------------------
+--                   Aliases                      --
+----------------------------------------------------
+
+--------------------------------------------------------------
+-- Commented out aliases simply uncomment and set new_name  --
+--------------------------------------------------------------
+-----------
+-- Metal --
+-----------
+-- minetest.register_alias("mtg_basic_env_cook:steel_ingot","mtg_basic_env_cook:new_name")
+-- minetest.register_alias("mtg_basic_env_cook:tin_ingot","mtg_basic_env_cook:new_name")
+-- minetest.register_alias("mtg_basic_env_cook:copper_ingot","mtg_basic_env_cook:new_name")
+-- minetest.register_alias("mtg_basic_env_cook:silver_ingot","mtg_basic_env_cook:new_name")
+-- minetest.register_alias("mtg_basic_env_cook:gold_ingot","mtg_basic_env_cook:new_name")
+
+----------------
+--  Other   --
+----------------
+-- minetest.register_alias("mtg_basic_env_cook:brick_clay","mtg_basic_env_cook:new_name")

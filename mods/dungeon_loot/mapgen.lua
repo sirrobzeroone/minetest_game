@@ -55,13 +55,20 @@ local function find_walls(cpos)
 	local biome = minetest.get_biome_data(cpos)
 	biome = biome and minetest.get_biome_name(biome.biome) or ""
 	local type = "normal"
+	
+	for k,loot_biome in pairs(dungeon_loot.loot_biomes) do
+		if biome:find(loot_biome ) == 1 then
+			type = loot_biome
+		end
+	end
+	--[[ -- orginal code saved	
 	if biome:find("desert") == 1 then
 		type = "desert"
 	elseif biome:find("sandstone_desert") == 1 then
 		type = "sandstone"
 	elseif biome:find("icesheet") == 1 then
 		type = "ice"
-	end
+	end--]]
 
 	return {
 		walls = ret,
@@ -72,7 +79,7 @@ end
 
 local function populate_chest(pos, rand, dungeontype)
 	--minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
-	--minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
+	--minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="torch:torch", param2=1})
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
@@ -123,6 +130,9 @@ end
 
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
+	-- Check for Chest Aliases
+	local chest =  minetest.registered_aliases["chest:chest"] or "chest:chest"
+	
 	local gennotify = minetest.get_mapgen_object("gennotify")
 	local poslist = gennotify["dungeon"] or {}
 	for _, entry in ipairs(gennotify["temple"] or {}) do
@@ -164,7 +174,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		if minetest.get_node(chestpos).name == "air" then
 			-- make it face inwards to the room
 			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
-			minetest.add_node(chestpos, {name = "default:chest", param2 = facedir})
+			minetest.add_node(chestpos, {name = chest, param2 = facedir})
 			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
 		end
 	end

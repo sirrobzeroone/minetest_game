@@ -1,0 +1,10 @@
+# textdomain: furnace
+Furnace=Печь
+Furnace is empty=Печь пустая
+Empty=Пустое
+Furnace active=Печь зажжена
+Furnace inactive=Печь не зажжена
+Not cookable=Не может быть приготовлено
+100% (output full)=100% (полное приготовление) 
+@1%=@1%
+(Item: @1; Fuel: @2)=(Предмет: @1; Топливо: @2)

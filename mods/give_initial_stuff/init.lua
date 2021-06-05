@@ -1,8 +1,15 @@
 -- gave_initial_stuff/init.lua
 
+-- Check for Aliases for nodes external to module
+local pick_steel = minetest.registered_aliases["mtg_tools:pick_steel"] or "mtg_tools:pick_steel"
+local axe_steel = minetest.registered_aliases["mtg_tools:axe_steel"] or "mtg_tools:axe_steel"
+local shovel_steel = minetest.registered_aliases["mtg_tools:shovel_steel"] or "mtg_tools:shovel_steel"
+local torch = minetest.registered_aliases["torch:torch"] or "torch:torch"
+local cobble = minetest.registered_aliases["mtg_basic_env:cobble"] or "mtg_basic_env:cobble"
+
 local stuff_string = minetest.settings:get("initial_stuff") or
-		"default:pick_steel,default:axe_steel,default:shovel_steel," ..
-		"default:torch 99,default:cobble 99"
+		pick_steel..","..axe_steel..","..shovel_steel..
+		","..torch.." 50,"..cobble.." 50"
 
 give_initial_stuff = {
 	items = {}

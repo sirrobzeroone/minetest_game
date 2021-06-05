@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   id="svg2856"
+   version="1.1"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="Minetest_logo_game_base.svg"
+   inkscape:export-filename="/home/erlehmann/pics/icons/minetest/minetest-icon-24x24.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
+  <defs
+     id="defs2858">
+    <filter
+       inkscape:collect="always"
+       id="filter3864">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.20490381"
+         id="feGaussianBlur3866" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="17.088413"
+     inkscape:cx="30.204589"
+     inkscape:cy="32.022538"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="3000"
+     inkscape:window-height="1890"
+     inkscape:window-x="-12"
+     inkscape:window-y="-12"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2866"
+       empspacing="2"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="0.5"
+       spacingy="10"
+       color="#ff0000"
+       opacity="0.1254902"
+       empcolor="#ff0000"
+       empopacity="0.25098039"
+       dotted="false"
+       originx="0"
+       originy="0" />
+    <inkscape:grid
+       type="axonomgrid"
+       id="grid2870"
+       units="px"
+       empspacing="1"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingy="1px"
+       originx="0px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2861">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="fill:none;fill-opacity:1;stroke-width:4.11061;stroke-linecap:butt"
+       id="rect855"
+       width="70"
+       height="70"
+       x="-9.2144527"
+       y="-3.5712776"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#e9b96e;fill-opacity:1;stroke:#573a0d;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 3.4641019,40 -3e-7,12 L 24.5,64.145082 45.5,51.730563 V 40.269437 L 24.248711,28 Z"
+       id="path3047"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#2e3436;fill-opacity:1;stroke:#2e3436;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 8.5,48.907477 -2,-1.1547 v 6 L 17.320508,60 V 58 L 15.588457,57 V 55 L 13.5,53.794229 v -4 l -5,-2.886752 z"
+       id="path3831"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="opacity:1;fill:#555753;fill-opacity:1;stroke:#2e3436;stroke-linejoin:miter"
+       d="M 6.9282032,54 10.392305,52 13.856406,54 15.5,54.948929 v 2 l 2,1.154701 v 2 z"
+       id="path3870"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#fce94f;fill-opacity:1;stroke:#625802;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 27.980762,15 33.5,18.186533 v 2 L 40.09375,24 43.5625,22 47.5,19.730563 V 18.269437 L 34.908965,11 Z"
+       id="path3851"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#e9b96e;fill-opacity:1;stroke:#573a0d;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       d="m 14.839746,28.341234 8.660254,-5 v 2 l -8.660254,5 z"
+       id="path5684"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#729fcf;fill-opacity:1;stroke:#19314b;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 33.5,32.10363 v 2 L 35.052559,35 v 2 L 40.5,40.145082 l 12,-7.071797 v -2.14657 l 2,-1.1547 v -1.54403 l -7,-4.041452 z"
+       id="path3825"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <g
+       id="g5686"
+       transform="translate(1.9999996,-10)"
+       style="stroke-linejoin:miter"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png">
+      <path
+         transform="translate(24.248712,-2)"
+         style="opacity:0.25;fill:#2e3436;fill-opacity:1;stroke:none;stroke-linejoin:miter;filter:url(#filter3864)"
+         d="m 13.856406,20 5.196153,3 -5.196153,3 -5.196152,-3 z"
+         id="path3868"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#4e9a06;fill-opacity:1;stroke:#316004;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 15.71539,21.073285 17.320508,22 18.71539,21.194664 V 12.805336 L 17.320508,12 15.71539,13.073285 Z"
+         id="path3853"
+         sodipodi:nodetypes="ccccccc"
+         transform="translate(20.78461)" />
+    </g>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ef2929;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5, 0.5;stroke-dashoffset:0.25;stroke-opacity:1"
+       d="M 12.124356,51 11.25833,50.5"
+       id="path3872"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#888a85;stroke:#2e3436;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       d="m 45.5,44.730563 -4,2.309401 v 1 l -2,1.1547 v 2 l -2,1.154701 v 4 l 8,-4.618802 z"
+       id="path3874"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#573a0d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 3.4641016,40 24.5,52.145082 45.5,40.269437"
+       id="path851"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#e9b96e;fill-opacity:1;stroke:#573a0d;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       d="M -6.535898,32 7.5,40.10363 v 2 L -6.5134398,33.945202 Z"
+       id="path5684-1-5"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#e9b96e;fill-opacity:1;stroke:#573a0d;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       d="m 7.5,40.10363 14,-7.917097 v 2 l -14,7.917097 z"
+       id="path5684-1"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <path
+       style="fill:#73d216;fill-opacity:1;stroke:#325b09;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 15.980762,19 -6.535898,32 7.5,40.10363 l 14,-7.917097 -6.660254,-3.845299 8.660254,-5 z"
+       id="path3821"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png" />
+    <g
+       id="g5691"
+       style="stroke-linejoin:miter"
+       transform="translate(0,-6)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="C:\Users\sirro\Minetest\minetest-5.3.0-win64 (mydev)\games\minetest_game_base\menu\icon.png">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3862"
+         d="m 13.856406,20 6.928204,4 -6.928204,4 -6.9282028,-4 z"
+         style="opacity:0.25;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3864)" />
+      <g
+         id="g3858"
+         style="stroke-linejoin:miter">
+        <path
+           style="fill:#c17d11;fill-opacity:1;stroke:#8f5902;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 15.588457,21 1.732051,1 1.732051,-1 v -6 l -1.732051,-1 -1.732051,1 z"
+           id="path3833"
+           sodipodi:nodetypes="ccccccc"
+           transform="translate(-3.4641015,2)" />
+        <path
+           style="fill:#4e9a06;fill-opacity:1;stroke:#316004;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 9.9641015,13.752777 17.320508,18 23.964101,14.164319 V 5.8356805 L 17.320508,2 9.9641015,6.2472233 Z"
+           id="path3837"
+           transform="translate(-3.4641015,2)"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+    </g>
+  </g>
+</svg>

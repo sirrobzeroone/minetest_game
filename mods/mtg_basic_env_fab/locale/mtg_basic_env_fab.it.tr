@@ -1,0 +1,25 @@
+# textdomain: mtg_basic_env_fab
+Book=Libro
+Book with Text=Libro con testo
+"@1" by @2="@1" di @2
+Paper=Carta
+Empty Bookshelf=Libreria vuota
+Bookshelf=Libreria
+Wooden Sign=Cartello di legno
+Steel Sign=Cartello d'acciaio
+Text too long=Testo troppo lungo
+Wooden Ladder=Scala a pioli di legno
+Steel Ladder=Scala a pioli d'acciaio
+Apple Wood Fence=Recinzione di legno di melo
+Acacia Wood Fence=Recinzione di legno d'acacia
+Jungle Wood Fence=Recinzione di legno della giungla
+Pine Wood Fence=Recinzione di legno di pino
+Aspen Wood Fence=Recinzione di legno di pioppo
+Apple Wood Fence Rail=Ringhiera della recinzione di legno di melo
+Acacia Wood Fence Rail=Ringhiera della recinzione di legno d'acacia
+Jungle Wood Fence Rail=Ringhiera della recinzione di legno della giungla
+Pine Wood Fence Rail=Ringhiera della recinzione di legno di pino
+Aspen Wood Fence Rail=Ringhiera della recinzione di legno di pioppo
+Mese Lamp=Lampada di mese
+@1 will intersect protection on growth.=@1 crescendo attraverserà la protezione.
+Diamond Shard=

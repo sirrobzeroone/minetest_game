@@ -1,0 +1,43 @@
+----------------------------------------------------
+--  ___         _                            _    --
+-- | __|_ ___ _(_)_ _ ___ _ _  _ __  ___ _ _| |_  --
+-- | _|| ' \ V / | '_/ _ \ ' \| '  \/ -_) ' \  _| --
+-- |___|_||_\_/|_|_| \___/_||_|_|_|_\___|_||_\__| --
+--   ___     _        _         _   _             --
+--  | __|_ _| |__ _ _(_)__ __ _| |_(_)___ _ _     --
+--  | _/ _` | '_ \ '_| / _/ _` |  _| / _ \ ' \    --
+--  |_|\__,_|_.__/_| |_\__\__,_|\__|_\___/_||_|   --
+----------------------------------------------------
+--        MTG Basic Environment Fabrication       --
+----------------------------------------------------
+--                    Nodes                       --
+----------------------------------------------------
+--                   Aliases                      --
+----------------------------------------------------
+   
+--------------------------------------------------------------
+-- Commented out aliases simply uncomment and set new_name  --
+--------------------------------------------------------------
+-----------
+-- Stone --
+-----------
+-- minetest.register_alias("mtg_basic_env_fab:stone_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:stone_block","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:desert_stone_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:desert_stone_block","mtg_basic_env_fab:new_name")
+
+-- minetest.register_alias("mtg_basic_env_fab:sandstone_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:sandstone_block","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:desert_sandstone_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:desert_sandstone_block","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:silver_sandstone_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:silver_sandstone_block","mtg_basic_env_fab:new_name")
+
+-- minetest.register_alias(mtg_basic_env_fab:obsidian_brick","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:obsidian_block","mtg_basic_env_fab:new_name")
+
+----------------
+-- Crystal --
+----------------
+-- minetest.register_alias("mtg_basic_env_fab:mese","mtg_basic_env_fab:new_name")
+-- minetest.register_alias("mtg_basic_env_fab:diamond_crystal_block","mtg_basic_env_fab:new_name")

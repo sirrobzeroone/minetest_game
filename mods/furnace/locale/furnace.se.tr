@@ -1,0 +1,10 @@
+# textdomain: furnace
+Furnace=Ugn
+Furnace is empty=Ugnen är tom
+Empty=Tom
+Furnace active=Ugn aktiv
+Furnace inactive=Ugn inaktiv
+Not cookable=Inte kokbar
+100% (output full)=100% (utgången full)
+@1%=@1%
+(Item: @1; Fuel: @2)=(Sak: @1; Bränsle: @2)

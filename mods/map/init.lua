@@ -9,11 +9,25 @@ map = {}
 local S = minetest.get_translator("map")
 
 
+-- Cache creative mode setting
+
+local creative_mode_cache = minetest.settings:get_bool("creative_mode")
+
+
+-- Check for Aliases for nodes external to module
+local glass = minetest.registered_aliases["mtg_basic_env_cook:glass"] or "mtg_basic_env_cook:glass"
+local paper = minetest.registered_aliases["mtg_env_decor_fab:paper"] or "mtg_env_decor_fab:paper"
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+local dye_black = minetest.registered_aliases["dye:black"] or "dye:black"
+
+
 -- Update HUD flags
 -- Global to allow overriding
 
 function map.update_hud_flags(player)
-	local creative_enabled = minetest.is_creative_enabled(player:get_player_name())
+	local creative_enabled =
+		(creative and creative.is_enabled_for(player:get_player_name())) or
+		creative_mode_cache
 
 	local minimap_enabled = creative_enabled or
 		player:get_inventory():contains_item("main", "map:mapping_kit")
@@ -51,7 +65,7 @@ minetest.register_craftitem("map:mapping_kit", {
 	description = S("Mapping Kit") .. "\n" .. S("Use with 'Minimap' key"),
 	inventory_image = "map_mapping_kit.png",
 	stack_max = 1,
-	groups = {flammable = 3, tool = 1},
+	groups = {flammable = 3},
 
 	on_use = function(itemstack, user, pointed_thing)
 		map.update_hud_flags(user)
@@ -64,9 +78,9 @@ minetest.register_craftitem("map:mapping_kit", {
 minetest.register_craft({
 	output = "map:mapping_kit",
 	recipe = {
-		{"default:glass", "default:paper", "group:stick"},
-		{"default:steel_ingot", "default:paper", "default:steel_ingot"},
-		{"group:wood", "default:paper", "dye:black"},
+		{   glass    , paper , "group:stick"},
+		{steel_ingot , paper , steel_ingot  },
+		{"group:wood", paper ,  dye_black   }
 	}
 })
 

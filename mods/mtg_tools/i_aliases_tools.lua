@@ -1,0 +1,46 @@
+----------------------------------------------------
+--              _____         _                   --
+--             |_   _|__  ___| |___               --
+--               | |/ _ \/ _ \ (_-<               --
+--               |_|\___/\___/_/__/               --
+----------------------------------------------------
+--             MTG Tools and Weapons              --
+----------------------------------------------------
+--                 Register Tools                 --
+----------------------------------------------------
+--                   Aliases                      --
+----------------------------------------------------
+
+--------------------------------------------------------------
+-- Commented out aliases simply uncomment and set new_name  --
+--------------------------------------------------------------
+-----------
+-- Tools --
+-----------
+-- minetest.register_alias("mtg_tools:pick_wood","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:pick_stone","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:pick_bronze","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:pick_steel","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:pick_mese","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:pick_diamond","mtg_tools:new_name")
+
+-- minetest.register_alias("mtg_tools:shovel_wood","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:shovel_stone","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:shovel_bronze","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:shovel_steel","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:shovel_mese","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:shovel_diamond","mtg_tools:new_name")
+
+-- minetest.register_alias("mtg_tools:axe_wood","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:axe_stone","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:axe_bronze","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:axe_steel","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:axe_mese","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:axe_diamond","mtg_tools:new_name")	
+
+-- minetest.register_alias("mtg_tools:sword_wood","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:sword_stone","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:sword_bronze","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:sword_steel","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:sword_mese","mtg_tools:new_name")
+-- minetest.register_alias("mtg_tools:sword_diamond","mtg_tools:new_name")	

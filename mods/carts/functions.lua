@@ -12,7 +12,7 @@ function carts:manage_attachment(player, obj)
 	end
 	local status = obj ~= nil
 	local player_name = player:get_player_name()
-	if obj and player:get_attach() == obj then
+	if player_api.player_attached[player_name] == status then
 		return
 	end
 	player_api.player_attached[player_name] = status
@@ -20,10 +20,6 @@ function carts:manage_attachment(player, obj)
 	if status then
 		player:set_attach(obj, "", {x=0, y=-4.5, z=0}, {x=0, y=0, z=0})
 		player:set_eye_offset({x=0, y=-4, z=0},{x=0, y=-4, z=0})
-
-		-- player_api does not update the animation
-		-- when the player is attached, reset to default animation
-		player_api.set_animation(player, "stand")
 	else
 		player:set_detach()
 		player:set_eye_offset({x=0, y=0, z=0},{x=0, y=0, z=0})
@@ -218,7 +214,7 @@ function carts:register_rail(name, def_overwrite, railparams)
 			type = "fixed",
 			fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 		},
-		sounds = default.node_sound_metal_defaults()
+		sounds = mtg_basic_sounds.node_sound_metal()
 	}
 	for k, v in pairs(def_overwrite) do
 		def[k] = v

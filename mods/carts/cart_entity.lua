@@ -3,6 +3,7 @@
 -- support for MT game translation.
 local S = carts.get_translator
 
+
 local cart_entity = {
 	initial_properties = {
 		physical = false, -- otherwise going uphill breaks
@@ -29,10 +30,15 @@ function cart_entity:on_rightclick(clicker)
 	end
 	local player_name = clicker:get_player_name()
 	if self.driver and player_name == self.driver then
+		self.driver = nil
 		carts:manage_attachment(clicker, nil)
 	elseif not self.driver then
-		carts:manage_attachment(clicker, self.object)
 		self.driver = player_name
+		carts:manage_attachment(clicker, self.object)
+
+		-- player_api does not update the animation
+		-- when the player is attached, reset to default animation
+		player_api.set_animation(clicker, "stand")
 	end
 end
 
@@ -61,9 +67,8 @@ end
 -- 0.5.x and later: When the driver leaves
 function cart_entity:on_detach_child(child)
 	if child and child:get_player_name() == self.driver then
-		-- Clean up eye height
-		carts:manage_attachment(child, nil)
 		self.driver = nil
+		carts:manage_attachment(child, nil)
 	end
 end
 
@@ -104,7 +109,8 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		end
 		-- Pick up cart
 		local inv = puncher:get_inventory()
-		if not minetest.is_creative_enabled(puncher:get_player_name())
+		if not (creative and creative.is_enabled_for
+				and creative.is_enabled_for(puncher:get_player_name()))
 				or not inv:contains_item("main", "carts:cart") then
 			local leftover = inv:add_item("main", "carts:cart")
 			-- If no room in inventory add a replacement cart to the world
@@ -130,8 +136,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 	end
 
 	local punch_interval = 1
-	-- Faulty tool registrations may cause the interval to be set to 0 !
-	if tool_capabilities and (tool_capabilities.full_punch_interval or 0) > 0 then
+	if tool_capabilities and tool_capabilities.full_punch_interval then
 		punch_interval = tool_capabilities.full_punch_interval
 	end
 	time_from_last_punch = math.min(time_from_last_punch or punch_interval, punch_interval)
@@ -386,7 +391,7 @@ minetest.register_entity("carts:cart", cart_entity)
 minetest.register_craftitem("carts:cart", {
 	description = S("Cart") .. "\n" .. S("(Sneak+Click to pick up)"),
 	inventory_image = minetest.inventorycube("carts_cart_top.png", "carts_cart_front.png", "carts_cart_side.png"),
-	wield_image = "carts_cart_front.png",
+	wield_image = "carts_cart_side.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
 		local node = minetest.get_node(under)
@@ -412,17 +417,21 @@ minetest.register_craftitem("carts:cart", {
 		minetest.sound_play({name = "default_place_node_metal", gain = 0.5},
 			{pos = pointed_thing.above}, true)
 
-		if not minetest.is_creative_enabled(placer:get_player_name()) then
+		if not (creative and creative.is_enabled_for
+				and creative.is_enabled_for(placer:get_player_name())) then
 			itemstack:take_item()
 		end
 		return itemstack
 	end,
 })
 
+-- Check for Aliases for nodes external to mod
+local steel_ingot =  minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+
 minetest.register_craft({
 	output = "carts:cart",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+		{steel_ingot,     ""     , steel_ingot},
+		{steel_ingot, steel_ingot, steel_ingot},
 	},
 })

@@ -45,14 +45,12 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		return
 	end
 
-	local player_name = user and user:get_player_name() or ""
-
-	if minetest.is_protected(pt.under, player_name) then
-		minetest.record_protection_violation(pt.under, player_name)
+	if minetest.is_protected(pt.under, user:get_player_name()) then
+		minetest.record_protection_violation(pt.under, user:get_player_name())
 		return
 	end
-	if minetest.is_protected(pt.above, player_name) then
-		minetest.record_protection_violation(pt.above, player_name)
+	if minetest.is_protected(pt.above, user:get_player_name()) then
+		minetest.record_protection_violation(pt.above, user:get_player_name())
 		return
 	end
 
@@ -63,7 +61,8 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		gain = 0.5,
 	}, true)
 
-	if not minetest.is_creative_enabled(player_name) then
+	if not (creative and creative.is_enabled_for
+			and creative.is_enabled_for(user:get_player_name())) then
 		-- wear tool
 		local wdef = itemstack:get_definition()
 		itemstack:add_wear(65535/(uses-1))
@@ -182,7 +181,8 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 		minetest.pos_to_string(pt.above))
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
-	if not minetest.is_creative_enabled(player_name) then
+	if not (creative and creative.is_enabled_for
+			and creative.is_enabled_for(player_name)) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -304,7 +304,7 @@ farming.register_plant = function(name, def)
 			fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 		},
 		fertility = def.fertility,
-		sounds = default.node_sound_dirt_defaults({
+		sounds = mtg_basic_sounds.node_sound_dirt({
 			dig = {name = "", gain = 0},
 			dug = {name = "default_grass_footstep", gain = 0.2},
 			place = {name = "default_place_node", gain = 0.25},
@@ -375,7 +375,7 @@ farming.register_plant = function(name, def)
 				fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 			},
 			groups = nodegroups,
-			sounds = default.node_sound_leaves_defaults(),
+			sounds = mtg_basic_sounds.node_sound_leaves(),
 			next_plant = next_plant,
 			on_timer = farming.grow_plant,
 			minlight = def.minlight,

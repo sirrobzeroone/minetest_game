@@ -9,11 +9,21 @@ minetest.register_alias("bucket", "bucket:bucket_empty")
 minetest.register_alias("bucket_water", "bucket:bucket_water")
 minetest.register_alias("bucket_lava", "bucket:bucket_lava")
 
+-- Check for Aliases for nodes external to mod
+local steel_ingot =  minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+local water_source = minetest.registered_aliases["mtg_basic_env:water_source"] or "mtg_basic_env:water_source"
+local water_flowing = minetest.registered_aliases["mtg_basic_env:water_flowing"] or "mtg_basic_env:water_flowing"
+local water_fresh_source = minetest.registered_aliases["mtg_basic_env:river_water_source"] or "mtg_basic_env:river_water_source"
+local water_fresh_flowing = minetest.registered_aliases["mtg_basic_env:river_water_flowing"] or "mtg_basic_env:river_water_flowing"
+local lava_source = minetest.registered_aliases["mtg_basic_env:lava_source"] or "mtg_basic_env:lava_source"
+local lava_flowing = minetest.registered_aliases["mtg_basic_env:lava_flowing"] or "mtg_basic_env:lava_flowing"
+
+
 minetest.register_craft({
 	output = "bucket:bucket_empty 1",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"", "default:steel_ingot", ""},
+		{steel_ingot,     ""     , steel_ingot},
+		{    ""     , steel_ingot,      ""    },
 	}
 })
 
@@ -185,8 +195,8 @@ minetest.register_craftitem("bucket:bucket_empty", {
 })
 
 bucket.register_liquid(
-	"default:water_source",
-	"default:water_flowing",
+	water_source,
+	water_flowing,
 	"bucket:bucket_water",
 	"bucket_water.png",
 	S("Water Bucket"),
@@ -200,8 +210,8 @@ bucket.register_liquid(
 -- used here.
 
 bucket.register_liquid(
-	"default:river_water_source",
-	"default:river_water_flowing",
+	water_fresh_source,
+	water_fresh_flowing,
 	"bucket:bucket_river_water",
 	"bucket_river_water.png",
 	S("River Water Bucket"),
@@ -210,8 +220,8 @@ bucket.register_liquid(
 )
 
 bucket.register_liquid(
-	"default:lava_source",
-	"default:lava_flowing",
+	lava_source,
+	lava_flowing,
 	"bucket:bucket_lava",
 	"bucket_lava.png",
 	S("Lava Bucket"),
@@ -231,7 +241,7 @@ if minetest.global_exists("dungeon_loot") then
 		{name = "bucket:bucket_empty", chance = 0.55},
 		-- water in deserts/ice or above ground, lava otherwise
 		{name = "bucket:bucket_water", chance = 0.45,
-			types = {"sandstone", "desert", "ice"}},
+			types = {"sandstone_desert", "desert", "icesheet"}},
 		{name = "bucket:bucket_water", chance = 0.45, y = {0, 32768},
 			types = {"normal"}},
 		{name = "bucket:bucket_lava", chance = 0.45, y = {-32768, -1},

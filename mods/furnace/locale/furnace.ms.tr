@@ -1,0 +1,10 @@
+# textdomain: furnace
+Furnace=Relau
+Furnace is empty=Relau masih kosong
+Empty=Kosong
+Furnace active=Relau aktif
+Furnace inactive=Relau tidak aktif
+Not cookable=Tidak boleh dimasak
+100% (output full)=100% (keluaran penuh)
+@1%=@1%
+(Item: @1; Fuel: @2)=(Item: @1; Bahan api: @2)

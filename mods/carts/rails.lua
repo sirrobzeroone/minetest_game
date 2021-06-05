@@ -3,6 +3,11 @@
 -- support for MT game translation.
 local S = carts.get_translator
 
+-- Check for Aliases for nodes external to module
+local steel_ingot =  minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+local mese_crystal = minetest.registered_aliases["mtg_basic_env:mese_crystal"] or "mtg_basic_env:mese_crystal"
+local coal_lump = minetest.registered_aliases["mtg_basic_env:coal_lump"] or "mtg_basic_env:coal_lump"
+
 carts:register_rail("carts:rail", {
 	description = S("Rail"),
 	tiles = {
@@ -17,9 +22,9 @@ carts:register_rail("carts:rail", {
 minetest.register_craft({
 	output = "carts:rail 18",
 	recipe = {
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
+		{steel_ingot, "group:wood", steel_ingot},
+		{steel_ingot,       ""    , steel_ingot},
+		{steel_ingot, "group:wood", steel_ingot},
 	}
 })
 
@@ -38,9 +43,9 @@ carts:register_rail("carts:powerrail", {
 minetest.register_craft({
 	output = "carts:powerrail 18",
 	recipe = {
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
-		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
+		{steel_ingot, "group:wood", steel_ingot},
+		{steel_ingot, mese_crystal, steel_ingot},
+		{steel_ingot, "group:wood", steel_ingot},
 	}
 })
 
@@ -57,8 +62,8 @@ carts:register_rail("carts:brakerail", {
 minetest.register_craft({
 	output = "carts:brakerail 18",
 	recipe = {
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
-		{"default:steel_ingot", "default:coal_lump", "default:steel_ingot"},
-		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
+		{steel_ingot, "group:wood", steel_ingot},
+		{steel_ingot,   coal_lump , steel_ingot},
+		{steel_ingot, "group:wood", steel_ingot},
 	}
 })

@@ -47,6 +47,7 @@ for _, row in ipairs(dye.dyes) do
 	})
 end
 
+
 -- Manually add coal -> black dye
 
 minetest.register_craft({
@@ -57,11 +58,10 @@ minetest.register_craft({
 })
 
 -- Manually add blueberries->violet dye
-
 minetest.register_craft({
 	output = "dye:violet 2",
 	recipe = {
-		{"default:blueberries"}
+		{"group:food_blueberries"}
 	},
 })
 

@@ -6,6 +6,11 @@ fire = {}
 -- Load support for MT game translation.
 local S = minetest.get_translator("fire")
 
+-- Check for Aliases for nodes external to module
+local flint = minetest.registered_aliases["mtg_basic_env:flint"] or "mtg_basic_env:flint"
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+local coal_block = minetest.registered_aliases["mtg_basic_env_fab:coal_block"] or "mtg_basic_env_fab:coal_block"
+
 -- 'Enable fire' setting
 local fire_enabled = minetest.settings:get_bool("enable_fire")
 if fire_enabled == nil then
@@ -111,7 +116,8 @@ minetest.register_tool("fire:flint_and_steel", {
 				minetest.set_node(pointed_thing.above, {name = "fire:basic_flame"})
 			end
 		end
-		if not minetest.is_creative_enabled(player_name) then
+		if not (creative and creative.is_enabled_for
+				and creative.is_enabled_for(player_name)) then
 			-- Wear tool
 			local wdef = itemstack:get_definition()
 			itemstack:add_wear(1000)
@@ -129,13 +135,13 @@ minetest.register_tool("fire:flint_and_steel", {
 minetest.register_craft({
 	output = "fire:flint_and_steel",
 	recipe = {
-		{"default:flint", "default:steel_ingot"}
+		{flint, steel_ingot}
 	}
 })
 
 -- Override coalblock to enable permanent flame above
 -- Coalblock is non-flammable to avoid unwanted basic_flame nodes
-minetest.override_item("default:coalblock", {
+minetest.override_item(coal_block, {
 	after_destruct = function(pos)
 		pos.y = pos.y + 1
 		if minetest.get_node(pos).name == "fire:permanent_flame" then

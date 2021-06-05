@@ -1,0 +1,10 @@
+# textdomain: furnace
+Furnace=Ofen
+Furnace is empty=Ofen ist leer
+Empty=Leer
+Furnace active=Ofen aktiv
+Furnace inactive=Ofen inaktiv
+Not cookable=Nicht kochbar
+100% (output full)=100% (Ausgabe voll)
+@1%=@1%
+(Item: @1; Fuel: @2)=(Gegenstand: @1; Brennstoff: @2)

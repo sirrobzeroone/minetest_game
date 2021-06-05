@@ -1,4 +1,8 @@
 -- farming/hoes.lua
+	
+--Aliases Check
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+
 
 -- support for MT game translation.
 local S = farming.get_translator
@@ -23,7 +27,7 @@ farming.register_hoe(":farming:hoe_steel", {
 	description = S("Steel Hoe"),
 	inventory_image = "farming_tool_steelhoe.png",
 	max_uses = 500,
-	material = "default:steel_ingot",
+	material = steel_ingot,
 	groups = {hoe = 1}
 })
 

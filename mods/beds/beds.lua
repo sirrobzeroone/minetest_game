@@ -3,6 +3,10 @@
 -- support for MT game translation.
 local S = beds.get_translator
 
+-- Check for Aliases for nodes external to module
+local wool_white = minetest.registered_aliases["wool:white"] or "wool:white"
+
+
 -- Fancy shaped bed
 
 beds.register_bed("beds:fancy_bed", {
@@ -48,8 +52,8 @@ beds.register_bed("beds:fancy_bed", {
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
-		{"", "", "group:stick"},
-		{"wool:white", "wool:white", "wool:white"},
+		{     ""     ,     ""      ,"group:stick"},
+		{ wool_white ,  wool_white ,  wool_white },
 		{"group:wood", "group:wood", "group:wood"},
 	},
 })
@@ -84,8 +88,8 @@ beds.register_bed("beds:bed", {
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
 	recipe = {
-		{"wool:white", "wool:white", "wool:white"},
-		{"group:wood", "group:wood", "group:wood"}
+		{ wool_white ,  wool_white ,  wool_white },
+		{"group:wood", "group:wood", "group:wood"},
 	},
 })
 

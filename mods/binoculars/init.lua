@@ -8,16 +8,25 @@ binoculars = {}
 local S = minetest.get_translator("binoculars")
 
 
+-- Detect creative mod
+local creative_mod = minetest.get_modpath("creative")
+-- Cache creative mode setting as fallback if creative mod not present
+local creative_mode_cache = minetest.settings:get_bool("creative_mode")
+
+
 -- Update player property
 -- Global to allow overriding
 
 function binoculars.update_player_property(player)
+	local creative_enabled =
+		(creative_mod and creative.is_enabled_for(player:get_player_name())) or
+		creative_mode_cache
 	local new_zoom_fov = 0
 
 	if player:get_inventory():contains_item(
 			"main", "binoculars:binoculars") then
 		new_zoom_fov = 10
-	elseif minetest.is_creative_enabled(player:get_player_name()) then
+	elseif creative_enabled then
 		new_zoom_fov = 15
 	end
 
@@ -53,7 +62,6 @@ minetest.register_craftitem("binoculars:binoculars", {
 	description = S("Binoculars") .. "\n" .. S("Use with 'Zoom' key"),
 	inventory_image = "binoculars_binoculars.png",
 	stack_max = 1,
-	groups = {tool = 1},
 
 	on_use = function(itemstack, user, pointed_thing)
 		binoculars.update_player_property(user)
@@ -63,11 +71,14 @@ minetest.register_craftitem("binoculars:binoculars", {
 
 -- Crafting
 
+-- Alias Check
+local ob_glass = minetest.registered_aliases["mtg_basic_env_cook:obsidian_glass"] or "mtg_basic_env_cook:obsidian_glass"
+local bronze_ingot = minetest.registered_aliases["mtg_basic_env_cook:bronze_ingot"] or "mtg_basic_env_cook:bronze_ingot"
 minetest.register_craft({
 	output = "binoculars:binoculars",
 	recipe = {
-		{"default:obsidian_glass", "", "default:obsidian_glass"},
-		{"default:bronze_ingot", "default:bronze_ingot", "default:bronze_ingot"},
-		{"default:obsidian_glass", "", "default:obsidian_glass"},
+		{  ob_glass  ,      ""     ,   ob_glass  },
+		{bronze_ingot, bronze_ingot, bronze_ingot},
+		{  ob_glass  ,      ""     ,   ob_glass  },
 	}
 })

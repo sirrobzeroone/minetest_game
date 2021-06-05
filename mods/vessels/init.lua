@@ -6,6 +6,10 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("vessels")
 
+-- Check for Aliases for nodes external to module
+local glass = minetest.registered_aliases["mtg_basic_env_cook:glass"] or "mtg_basic_env_cook:glass"
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+
 
 local vessels_shelf_formspec =
 	"size[8,7;]" ..
@@ -14,7 +18,7 @@ local vessels_shelf_formspec =
 	"list[current_player;main;0,4.08;8,3;8]" ..
 	"listring[context;vessels]" ..
 	"listring[current_player;main]" ..
-	default.get_hotbar_bg(0, 2.85)
+	mtg_global.get_hotbar_bg(0, 2.85)
 
 local function update_vessels_shelf(pos)
 	local meta = minetest.get_meta(pos)
@@ -56,7 +60,7 @@ minetest.register_node("vessels:shelf", {
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = mtg_basic_sounds.node_sound_wood(),
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
@@ -91,7 +95,7 @@ minetest.register_node("vessels:shelf", {
 	end,
 	on_blast = function(pos)
 		local drops = {}
-		default.get_inventory_drops(pos, "vessels", drops)
+		mtg_global.get_inventory_drops(pos, "vessels", drops)
 		drops[#drops + 1] = "vessels:shelf"
 		minetest.remove_node(pos)
 		return drops
@@ -121,15 +125,15 @@ minetest.register_node("vessels:glass_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = mtg_basic_sounds.node_sound_glass(),
 })
 
 minetest.register_craft( {
 	output = "vessels:glass_bottle 10",
 	recipe = {
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "", "default:glass"},
-		{"", "default:glass", ""}
+		{glass, ""   , glass},
+		{glass, ""   , glass},
+		{  "" , glass,  ""  }
 	}
 })
 
@@ -147,15 +151,15 @@ minetest.register_node("vessels:drinking_glass", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = mtg_basic_sounds.node_sound_glass(),
 })
 
 minetest.register_craft( {
 	output = "vessels:drinking_glass 14",
 	recipe = {
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "default:glass", "default:glass"}
+		{glass, ""   , glass},
+		{glass, ""   , glass},
+		{glass, glass, glass}
 	}
 })
 
@@ -173,15 +177,15 @@ minetest.register_node("vessels:steel_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_defaults(),
+	sounds = mtg_basic_sounds.node_sound_metal(),
 })
 
 minetest.register_craft( {
 	output = "vessels:steel_bottle 5",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"", "default:steel_ingot", ""}
+		{steel_ingot,   ""       , steel_ingot},
+		{steel_ingot,   ""       , steel_ingot},
+		{     ""    , steel_ingot,     ""     }
 	}
 })
 
@@ -213,13 +217,13 @@ minetest.register_craft( {
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:glass",
+	output = glass,
 	recipe = "vessels:glass_fragments",
 })
 
 minetest.register_craft( {
 	type = "cooking",
-	output = "default:steel_ingot",
+	output = steel_ingot,
 	recipe = "vessels:steel_bottle",
 })
 

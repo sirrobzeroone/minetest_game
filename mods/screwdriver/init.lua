@@ -5,6 +5,9 @@ screwdriver = {}
 -- Load support for MT game translation.
 local S = minetest.get_translator("screwdriver")
 
+-- Check for Aliases for nodes external to module
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+
 
 screwdriver.ROTATE_FACE = 1
 screwdriver.ROTATE_AXIS = 2
@@ -140,7 +143,8 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 		minetest.check_for_falling(pos)
 	end
 
-	if not minetest.is_creative_enabled(player_name) then
+	if not (creative and creative.is_enabled_for and
+			creative.is_enabled_for(player_name)) then
 		itemstack:add_wear(65535 / ((uses or 200) - 1))
 	end
 
@@ -166,7 +170,7 @@ minetest.register_tool("screwdriver:screwdriver", {
 minetest.register_craft({
 	output = "screwdriver:screwdriver",
 	recipe = {
-		{"default:steel_ingot"},
+		{steel_ingot},
 		{"group:stick"}
 	}
 })

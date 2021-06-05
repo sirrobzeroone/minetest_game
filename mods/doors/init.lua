@@ -9,6 +9,15 @@ doors.registered_trapdoors = {}
 -- Load support for MT game translation.
 local S = minetest.get_translator("doors")
 
+-- Check for Aliases for nodes external to module
+local steel_ingot =  minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+local glass = minetest.registered_aliases["mtg_basic_env_cook:glass"] or "mtg_basic_env_cook:glass"
+local ob_glass = minetest.registered_aliases["mtg_basic_env_cookobsidian_glass"] or "mtg_basic_env_cook:obsidian_glass"
+local apple_wood = minetest.registered_aliases["mtg_decor_schema:apple_tree_wood"] or "mtg_decor_schema:apple_tree_wood"
+local acacia_wood = minetest.registered_aliases["mtg_decor_schema:acacia_tree_wood"] or "mtg_decor_schema:acacia_tree_wood"
+local aspen_wood = minetest.registered_aliases["mtg_decor_schema:aspen_tree_wood"] or "mtg_decor_schema:aspen_tree_wood"
+local pine_wood = minetest.registered_aliases["mtg_decor_schema:pine_tree_wood"] or "mtg_decor_schema:pine_tree_wood"
+local jungle_wood = minetest.registered_aliases["mtg_decor_schema:jungle_tree_wood"] or "mtg_decor_schema:jungle_tree_wood"
 
 local function replace_old_owner_information(pos)
 	local meta = minetest.get_meta(pos)
@@ -78,8 +87,6 @@ end
 -- nodes from being placed in the top half of the door.
 minetest.register_node("doors:hidden", {
 	description = S("Hidden Door Segment"),
-	inventory_image = "doors_hidden_segment.png^default_invisible_node_overlay.png",
-	wield_image = "doors_hidden_segment.png^default_invisible_node_overlay.png",
 	drawtype = "airlike",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -148,7 +155,7 @@ function doors.door_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if clicker and not default.can_interact_with_node(clicker, pos) then
+	if clicker and not mtg_global.can_interact_with_node(clicker, pos) then
 		return false
 	end
 
@@ -170,10 +177,10 @@ function doors.door_toggle(pos, node, clicker)
 
 	if state % 2 == 0 then
 		minetest.sound_play(def.door.sounds[1],
-			{pos = pos, gain = def.door.gains[1], max_hear_distance = 10}, true)
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	else
 		minetest.sound_play(def.door.sounds[2],
-			{pos = pos, gain = def.door.gains[2], max_hear_distance = 10}, true)
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	end
 
 	minetest.swap_node(pos, {
@@ -209,7 +216,7 @@ end
 
 local function can_dig_door(pos, digger)
 	replace_old_owner_information(pos)
-	return default.can_interact_with_node(digger, pos)
+	return mtg_global.can_interact_with_node(digger, pos)
 end
 
 function doors.register(name, def)
@@ -330,7 +337,7 @@ function doors.register(name, def)
 				meta:set_string("infotext", def.description .. "\n" .. S("Owned by @1", pn))
 			end
 
-			if not minetest.is_creative_enabled(pn) then
+			if not (creative and creative.is_enabled_for and creative.is_enabled_for(pn)) then
 				itemstack:take_item()
 			end
 
@@ -353,7 +360,7 @@ function doors.register(name, def)
 	def.recipe = nil
 
 	if not def.sounds then
-		def.sounds = default.node_sound_wood_defaults()
+		def.sounds = mtg_basic_sounds.node_sound_wood()
 	end
 
 	if not def.sound_open then
@@ -364,21 +371,12 @@ function doors.register(name, def)
 		def.sound_close = "doors_door_close"
 	end
 
-	if not def.gain_open then
-		def.gain_open = 0.3
-	end
-
-	if not def.gain_close then
-		def.gain_close = 0.3
-	end
-
 	def.groups.not_in_creative_inventory = 1
 	def.groups.door = 1
 	def.drop = name
 	def.door = {
 		name = name,
-		sounds = {def.sound_close, def.sound_open},
-		gains = {def.gain_close, def.gain_open},
+		sounds = { def.sound_close, def.sound_open },
 	}
 	if not def.on_rightclick then
 		def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
@@ -445,7 +443,6 @@ function doors.register(name, def)
 	def.buildable_to = false
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
-	def.use_texture_alpha = "clip"
 
 	def.mesh = "door_a.obj"
 	minetest.register_node(":" .. name .. "_a", def)
@@ -470,8 +467,6 @@ doors.register("door_wood", {
 		description = S("Wooden Door"),
 		inventory_image = "doors_item_wood.png",
 		groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-		gain_open = 0.06,
-		gain_close = 0.13,
 		recipe = {
 			{"group:wood", "group:wood"},
 			{"group:wood", "group:wood"},
@@ -485,15 +480,13 @@ doors.register("door_steel", {
 		inventory_image = "doors_item_steel.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = mtg_basic_sounds.node_sound_metal(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
-		gain_open = 0.2,
-		gain_close = 0.2,
 		recipe = {
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
+			{steel_ingot, steel_ingot},
+			{steel_ingot, steel_ingot},
+			{steel_ingot, steel_ingot},
 		}
 })
 
@@ -502,15 +495,13 @@ doors.register("door_glass", {
 		description = S("Glass Door"),
 		inventory_image = "doors_item_glass.png",
 		groups = {node = 1, cracky=3, oddly_breakable_by_hand=3},
-		sounds = default.node_sound_glass_defaults(),
+		sounds = mtg_basic_sounds.node_sound_glass(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
-		gain_open = 0.3,
-		gain_close = 0.25,
 		recipe = {
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
+			{glass, glass},
+			{glass, glass},
+			{glass, glass},
 		}
 })
 
@@ -519,15 +510,13 @@ doors.register("door_obsidian_glass", {
 		description = S("Obsidian Glass Door"),
 		inventory_image = "doors_item_obsidian_glass.png",
 		groups = {node = 1, cracky=3},
-		sounds = default.node_sound_glass_defaults(),
+		sounds = mtg_basic_sounds.node_sound_glass(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
-		gain_open = 0.3,
-		gain_close = 0.25,
 		recipe = {
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
+			{ob_glass, ob_glass},
+			{ob_glass, ob_glass},
+			{ob_glass, ob_glass},
 		},
 })
 
@@ -562,7 +551,7 @@ function doors.trapdoor_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if clicker and not default.can_interact_with_node(clicker, pos) then
+	if clicker and not mtg_global.can_interact_with_node(clicker, pos) then
 		return false
 	end
 
@@ -570,12 +559,12 @@ function doors.trapdoor_toggle(pos, node, clicker)
 
 	if string.sub(node.name, -5) == "_open" then
 		minetest.sound_play(def.sound_close,
-			{pos = pos, gain = def.gain_close, max_hear_distance = 10}, true)
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 		minetest.swap_node(pos, {name = string.sub(node.name, 1,
 			string.len(node.name) - 5), param1 = node.param1, param2 = node.param2})
 	else
 		minetest.sound_play(def.sound_open,
-			{pos = pos, gain = def.gain_open, max_hear_distance = 10}, true)
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 		minetest.swap_node(pos, {name = node.name .. "_open",
 			param1 = node.param1, param2 = node.param2})
 	end
@@ -599,7 +588,6 @@ function doors.register_trapdoor(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.is_ground_content = false
-	def.use_texture_alpha = "clip"
 
 	if def.protected then
 		def.can_dig = can_dig_door
@@ -609,7 +597,7 @@ function doors.register_trapdoor(name, def)
 			meta:set_string("owner", pn)
 			meta:set_string("infotext", def.description .. "\n" .. S("Owned by @1", pn))
 
-			return minetest.is_creative_enabled(pn)
+			return (creative and creative.is_enabled_for and creative.is_enabled_for(pn))
 		end
 
 		def.on_blast = function() end
@@ -647,7 +635,7 @@ function doors.register_trapdoor(name, def)
 	end
 
 	if not def.sounds then
-		def.sounds = default.node_sound_wood_defaults()
+		def.sounds = mtg_basic_sounds.node_sound_wood()
 	end
 
 	if not def.sound_open then
@@ -656,14 +644,6 @@ function doors.register_trapdoor(name, def)
 
 	if not def.sound_close then
 		def.sound_close = "doors_door_close"
-	end
-
-	if not def.gain_open then
-		def.gain_open = 0.3
-	end
-
-	if not def.gain_close then
-		def.gain_close = 0.3
 	end
 
 	local def_opened = table.copy(def)
@@ -719,8 +699,6 @@ doors.register_trapdoor("doors:trapdoor", {
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
-	gain_open = 0.06,
-	gain_close = 0.13,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 })
 
@@ -731,11 +709,9 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
 	protected = true,
-	sounds = default.node_sound_metal_defaults(),
+	sounds = mtg_basic_sounds.node_sound_metal(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
-	gain_open = 0.2,
-	gain_close = 0.2,
 	groups = {cracky = 1, level = 2, door = 1},
 })
 
@@ -751,8 +727,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "doors:trapdoor_steel",
 	recipe = {
-		{"default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot"},
+			{steel_ingot, steel_ingot},
+			{steel_ingot, steel_ingot},
 	}
 })
 
@@ -776,7 +752,7 @@ function doors.register_fencegate(name, def)
 		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			local node_def = minetest.registered_nodes[node.name]
 			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
-			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.15,
+			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.3,
 				max_hear_distance = 8}, true)
 			return itemstack
 		end,
@@ -797,7 +773,7 @@ function doors.register_fencegate(name, def)
 	end
 
 	if not fence.sounds then
-		fence.sounds = default.node_sound_wood_defaults()
+		fence.sounds = mtg_basic_sounds.node_sound_wood()
 	end
 
 	fence.groups.fence = 1
@@ -837,35 +813,35 @@ end
 doors.register_fencegate("doors:gate_wood", {
 	description = S("Apple Wood Fence Gate"),
 	texture = "default_wood.png",
-	material = "default:wood",
+	material = apple_wood,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
 })
 
 doors.register_fencegate("doors:gate_acacia_wood", {
 	description = S("Acacia Wood Fence Gate"),
 	texture = "default_acacia_wood.png",
-	material = "default:acacia_wood",
+	material = acacia_wood,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
 })
 
 doors.register_fencegate("doors:gate_junglewood", {
 	description = S("Jungle Wood Fence Gate"),
 	texture = "default_junglewood.png",
-	material = "default:junglewood",
+	material = jungle_wood,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
 })
 
 doors.register_fencegate("doors:gate_pine_wood", {
 	description = S("Pine Wood Fence Gate"),
 	texture = "default_pine_wood.png",
-	material = "default:pine_wood",
+	material = pine_wood,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3}
 })
 
 doors.register_fencegate("doors:gate_aspen_wood", {
 	description = S("Aspen Wood Fence Gate"),
 	texture = "default_aspen_wood.png",
-	material = "default:aspen_wood",
+	material = aspen_wood,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3}
 })
 

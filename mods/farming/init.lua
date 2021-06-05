@@ -15,6 +15,9 @@ dofile(farming.path .. "/api.lua")
 dofile(farming.path .. "/nodes.lua")
 dofile(farming.path .. "/hoes.lua")
 
+-- Check for Aliases for nodes external to module
+local dirt_dry_grass_dry = minetest.registered_aliases["mtg_basic_env:dirt_dry_grass_dry"] or "mtg_basic_env:dirt_dry_grass_dry"
+local wool_white = minetest.registered_aliases["wool:white"] or "wool:white"
 
 -- Wheat
 
@@ -25,7 +28,7 @@ farming.register_plant("farming:wheat", {
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = default.LIGHT_MAX,
+	maxlight = mtg_global.LIGHT_MAX,
 	fertility = {"grassland"},
 	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,
@@ -66,7 +69,7 @@ farming.register_plant("farming:cotton", {
 	inventory_image = "farming_cotton_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = default.LIGHT_MAX,
+	maxlight = mtg_global.LIGHT_MAX,
 	fertility = {"grassland", "desert"},
 	groups = {flammable = 4},
 })
@@ -74,7 +77,7 @@ farming.register_plant("farming:cotton", {
 minetest.register_decoration({
 	name = "farming:cotton_wild",
 	deco_type = "simple",
-	place_on = {"default:dry_dirt_with_dry_grass"},
+	place_on = {dirt_dry_grass_dry},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.1,
@@ -97,7 +100,7 @@ minetest.register_craftitem("farming:string", {
 })
 
 minetest.register_craft({
-	output = "wool:white",
+	output = wool_white,
 	recipe = {
 		{"farming:cotton", "farming:cotton"},
 		{"farming:cotton", "farming:cotton"},

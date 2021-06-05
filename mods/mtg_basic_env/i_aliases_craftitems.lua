@@ -1,0 +1,33 @@
+----------------------------------------------------
+--  ___         _                            _    --
+-- | __|_ ___ _(_)_ _ ___ _ _  _ __  ___ _ _| |_  --
+-- | _|| ' \ V / | '_/ _ \ ' \| '  \/ -_) ' \  _| --
+-- |___|_||_\_/|_|_| \___/_||_|_|_|_\___|_||_\__| --
+----------------------------------------------------
+--             MTG Basic Environment              --
+----------------------------------------------------
+--                  Craft Items                   --
+----------------------------------------------------
+--                    Aliases                     --
+----------------------------------------------------
+
+--------------------------------------------------------------
+-- Commented out aliases simply uncomment and set new_name  --
+--------------------------------------------------------------
+----------
+-- Ores --
+----------
+-- minetest.register_alias("mtg_basic_env:coal_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:iron_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:tin_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:copper_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:silver_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:gold_lump","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:mese_crystal","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:diamond_crystal","mtg_basic_env:new_name")
+
+----------------------
+-- Soft / Non-Stone --
+----------------------
+-- minetest.register_alias("mtg_basic_env:flint","mtg_basic_env:new_name")
+-- minetest.register_alias("mtg_basic_env:clay_lump","mtg_basic_env:new_name")

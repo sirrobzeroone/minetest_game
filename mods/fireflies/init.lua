@@ -4,6 +4,28 @@
 local S = minetest.get_translator("fireflies")
 
 
+-- check mtg_decor_schema - optional depends
+local dec_schema = false
+
+if minetest.get_modpath("mtg_decor_schema") ~= nil then
+	dec_schema = true
+end
+
+-- Check for Aliases for nodes external to module
+local dirt = minetest.registered_aliases["mtg_basic_env:dirt"] or "mtg_basic_env:dirt"
+local dirt_grass = minetest.registered_aliases["mtg_basic_env:dirt_grass"] or "mtg_basic_env:dirt_grass"
+local glass_bottle = minetest.registered_aliases["vessels:glass_bottle"] or "vessels:glass_bottle"
+local string_farm = minetest.registered_aliases["farming:string"] or "farming:string"
+
+local rain_litter = minetest.registered_aliases["mtg_basic_env:dirt"] or "mtg_basic_env:dirt"
+local con_litter = minetest.registered_aliases["mtg_basic_env:dirt"] or "mtg_basic_env:dirt"
+if dec_schema == true then
+	rain_litter = minetest.registered_aliases["mtg_decor_schema:dirt_with_rainforest_litter"] or "mtg_decor_schema:dirt_with_rainforest_litter"
+	con_litter = minetest.registered_aliases["mtg_decor_schema:dirt_with_coniferous_litter"] or "mtg_decor_schema:dirt_with_coniferous_litter"
+end
+
+local firefly_biomes = {"deciduous_forest","coniferous_forest","rainforest","rainforest_swamp"}
+
 minetest.register_node("fireflies:firefly", {
 	description = S("Firefly"),
 	drawtype = "plantlike",
@@ -54,8 +76,8 @@ minetest.register_node("fireflies:firefly", {
 minetest.register_node("fireflies:hidden_firefly", {
 	description = S("Hidden Firefly"),
 	drawtype = "airlike",
-	inventory_image = "fireflies_firefly.png^default_invisible_node_overlay.png",
-	wield_image =  "fireflies_firefly.png^default_invisible_node_overlay.png",
+	inventory_image = "fireflies_firefly.png",
+	wield_image =  "fireflies_firefly.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -92,9 +114,8 @@ minetest.register_tool("fireflies:bug_net", {
 	description = S("Bug Net"),
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
-		local player_name = player and player:get_player_name() or ""
 		if not pointed_thing or pointed_thing.type ~= "node" or
-				minetest.is_protected(pointed_thing.under, player_name) then
+				minetest.is_protected(pointed_thing.under, player:get_player_name()) then
 			return
 		end
 		local node_name = minetest.get_node(pointed_thing.under).name
@@ -107,7 +128,7 @@ minetest.register_tool("fireflies:bug_net", {
 				minetest.add_item(pointed_thing.under, node_name.." 1")
 			end
 		end
-		if not minetest.is_creative_enabled(player_name) then
+		if not (creative and creative.is_enabled_for(player:get_player_name())) then
 			itemstack:add_wear(256)
 			return itemstack
 		end
@@ -117,9 +138,9 @@ minetest.register_tool("fireflies:bug_net", {
 minetest.register_craft( {
 	output = "fireflies:bug_net",
 	recipe = {
-		{"farming:string", "farming:string"},
-		{"farming:string", "farming:string"},
-		{"group:stick", ""}
+		{string_farm, string_farm},
+		{string_farm, string_farm},
+		{"group:stick",   ""     }
 	}
 })
 
@@ -148,7 +169,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = mtg_basic_sounds.node_sound_glass(),
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.is_protected(pos, player:get_player_name()) or
@@ -167,7 +188,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 		end
 
 		if firefly_pos then
-			minetest.set_node(pos, {name = "vessels:glass_bottle"})
+			minetest.set_node(pos, {name = glass_bottle})
 			minetest.set_node(firefly_pos, {name = "fireflies:firefly"})
 			minetest.get_node_timer(firefly_pos):start(1)
 		end
@@ -178,7 +199,7 @@ minetest.register_craft( {
 	output = "fireflies:firefly_bottle",
 	recipe = {
 		{"fireflies:firefly"},
-		{"vessels:glass_bottle"}
+		{glass_bottle}
 	}
 })
 
@@ -190,7 +211,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 	minetest.register_decoration({
 		name = "fireflies:firefly_low",
 		deco_type = "simple",
-		place_on = "default:dirt_with_grass",
+		place_on = dirt_grass,
 		place_offset_y = 2,
 		sidelen = 80,
 		fill_ratio = 0.0002,
@@ -202,7 +223,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 	minetest.register_decoration({
 		name = "fireflies:firefly_high",
 		deco_type = "simple",
-		place_on = "default:dirt_with_grass",
+		place_on = dirt_grass,
 		place_offset_y = 3,
 		sidelen = 80,
 		fill_ratio = 0.0002,
@@ -217,20 +238,15 @@ else
 		name = "fireflies:firefly_low",
 		deco_type = "simple",
 		place_on = {
-			"default:dirt_with_grass",
-			"default:dirt_with_coniferous_litter",
-			"default:dirt_with_rainforest_litter",
-			"default:dirt"
+			dirt_grass,
+			dirt,
+			con_litter,
+			rain_litter
 		},
 		place_offset_y = 2,
 		sidelen = 80,
 		fill_ratio = 0.0005,
-		biomes = {
-			"deciduous_forest",
-			"coniferous_forest",
-			"rainforest",
-			"rainforest_swamp"
-		},
+		biomes = firefly_biomes,
 		y_max = 31000,
 		y_min = -1,
 		decoration = "fireflies:hidden_firefly",
@@ -240,20 +256,15 @@ else
 		name = "fireflies:firefly_high",
 		deco_type = "simple",
 		place_on = {
-			"default:dirt_with_grass",
-			"default:dirt_with_coniferous_litter",
-			"default:dirt_with_rainforest_litter",
-			"default:dirt"
+			dirt_grass,
+			dirt,
+			con_litter,
+			rain_litter
 		},
 		place_offset_y = 3,
 		sidelen = 80,
 		fill_ratio = 0.0005,
-		biomes = {
-			"deciduous_forest",
-			"coniferous_forest",
-			"rainforest",
-			"rainforest_swamp"
-		},
+		biomes = firefly_biomes,
 		y_max = 31000,
 		y_min = -1,
 		decoration = "fireflies:hidden_firefly",

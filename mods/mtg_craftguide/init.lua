@@ -242,13 +242,11 @@ local function recipe_fs(fs, data)
 	for i, item in pairs(recipe.items) do
 		local x, y = coords(i - 1, width)
 
-		local elem_name = item
 		local groups = extract_groups(item)
 		if groups then
 			item = groups_to_item(groups)
-			elem_name = esc(item.."."..table.concat(groups, "+"))
 		end
-		item_button_fs(fs, base_x + x, base_y + y, item, elem_name, groups)
+		item_button_fs(fs, base_x + x, base_y + y, item, item, groups)
 	end
 
 	if shapeless or recipe.method == "cooking" then
@@ -380,7 +378,7 @@ local function on_receive_fields(player, fields)
 		local item
 		for field in pairs(fields) do
 			if field:find(":") then
-				item = field:match("[%w_:]+")
+				item = field
 				break
 			end
 		end

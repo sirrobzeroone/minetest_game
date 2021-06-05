@@ -12,11 +12,22 @@ if enable_tnt == nil then
 	enable_tnt = minetest.is_singleplayer()
 end
 
+-- Check for Aliases for nodes external to module
+local cobble = minetest.registered_aliases["mtg_basic_env:cobble"] or "mtg_basic_env:cobble"
+local dirt = minetest.registered_aliases["mtg_basic_env:dirt"] or "mtg_basic_env:dirt"
+local coal_lump = minetest.registered_aliases["mtg_basic_env:coal_lump"] or "mtg_basic_env:coal_lump"
+local gravel = minetest.registered_aliases["mtg_basic_env:gravel"] or "mtg_basic_env:gravel"
+local paper = minetest.registered_aliases["mtg_env_decor:paper"] or "mtg_env_decor:paper"
+local fire = minetest.registered_aliases["fire:basic_flame"] or "fire:basic_flame"
+local lava_source = minetest.registered_aliases["mtg_basic_env:lava_source"] or "mtg_basic_env:lava_source"
+local lava_flowing= minetest.registered_aliases["mtg_basic_env:lava_flowing"] or "mtg_basic_env:lava_flowing"
+
+
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
 
-loss_prob["default:cobble"] = 3
-loss_prob["default:dirt"] = 4
+loss_prob[cobble] = 3
+loss_prob[dirt] = 4
 
 local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
@@ -165,7 +176,7 @@ local function entity_physics(pos, radius, drops)
 		if obj:is_player() then
 			local dir = vector.normalize(vector.subtract(obj_pos, pos))
 			local moveoff = vector.multiply(dir, 2 / dist * radius)
-			obj:add_velocity(moveoff)
+			obj:add_player_velocity(moveoff)
 
 			obj:set_hp(obj:get_hp() - damage)
 		else
@@ -429,12 +440,10 @@ end
 
 minetest.register_node("tnt:boom", {
 	drawtype = "airlike",
-	inventory_image = "tnt_boom.png",
-	wield_image = "tnt_boom.png",
-	light_source = default.LIGHT_MAX,
+	light_source = mtg_global.LIGHT_MAX,
 	walkable = false,
 	drop = "",
-	groups = {dig_immediate = 3, not_in_creative_inventory = 1},
+	groups = {dig_immediate = 3},
 	-- unaffected by explosions
 	on_blast = function() end,
 })
@@ -460,10 +469,11 @@ minetest.register_node("tnt:gunpowder", {
 	},
 	groups = {dig_immediate = 2, attached_node = 1, flammable = 5,
 		connect_to_raillike = minetest.raillike_group("gunpowder")},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = mtg_basic_sounds.node_sound_leaves(),
 
 	on_punch = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
+		local torch = minetest.registered_aliases["default:torch"] or "default:torch"
+		if puncher:get_wielded_item():get_name() == torch then
 			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 			minetest.log("action", puncher:get_player_name() ..
 				" ignites tnt:gunpowder at " ..
@@ -531,10 +541,9 @@ minetest.register_node("tnt:gunpowder_burning", {
 	groups = {
 		dig_immediate = 2,
 		attached_node = 1,
-		connect_to_raillike = minetest.raillike_group("gunpowder"),
-		not_in_creative_inventory = 1
+		connect_to_raillike = minetest.raillike_group("gunpowder")
 	},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = mtg_basic_sounds.node_sound_leaves(),
 	on_timer = function(pos, elapsed)
 		for dx = -1, 1 do
 		for dz = -1, 1 do
@@ -563,7 +572,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 minetest.register_craft({
 	output = "tnt:gunpowder 5",
 	type = "shapeless",
-	recipe = {"default:coal_lump", "default:gravel"}
+	recipe = {coal_lump, gravel}
 })
 
 minetest.register_craftitem("tnt:tnt_stick", {
@@ -576,9 +585,9 @@ if enable_tnt then
 	minetest.register_craft({
 		output = "tnt:tnt_stick 2",
 		recipe = {
-			{"tnt:gunpowder", "", "tnt:gunpowder"},
-			{"tnt:gunpowder", "default:paper", "tnt:gunpowder"},
-			{"tnt:gunpowder", "", "tnt:gunpowder"},
+			{"tnt:gunpowder",   "" , "tnt:gunpowder"},
+			{"tnt:gunpowder", paper, "tnt:gunpowder"},
+			{"tnt:gunpowder",   "" , "tnt:gunpowder"},
 		}
 	})
 
@@ -594,7 +603,7 @@ if enable_tnt then
 	minetest.register_abm({
 		label = "TNT ignition",
 		nodenames = {"group:tnt", "tnt:gunpowder"},
-		neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
+		neighbors = {fire, lava_source, lava_flowing},
 		interval = 4,
 		chance = 1,
 		action = function(pos, node)
@@ -624,7 +633,7 @@ function tnt.register_tnt(def)
 			tiles = {tnt_top, tnt_bottom, tnt_side},
 			is_ground_content = false,
 			groups = {dig_immediate = 2, mesecon = 2, tnt = 1, flammable = 5},
-			sounds = default.node_sound_wood_defaults(),
+			sounds = mtg_basic_sounds.node_sound_wood(),
 			after_place_node = function(pos, placer)
 				if placer:is_player() then
 					local meta = minetest.get_meta(pos)
@@ -632,7 +641,8 @@ function tnt.register_tnt(def)
 				end
 			end,
 			on_punch = function(pos, node, puncher)
-				if puncher:get_wielded_item():get_name() == "default:torch" then
+				local torch = minetest.registered_aliases["torch:torch"] or "torch:torch"
+				if puncher:get_wielded_item():get_name() == torch then
 					minetest.swap_node(pos, {name = name .. "_burning"})
 					minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 					minetest.log("action", puncher:get_player_name() ..
@@ -678,8 +688,8 @@ function tnt.register_tnt(def)
 			},
 		light_source = 5,
 		drop = "",
-		sounds = default.node_sound_wood_defaults(),
-		groups = {falling_node = 1, not_in_creative_inventory = 1},
+		sounds = mtg_basic_sounds.node_sound_wood(),
+		groups = {falling_node = 1},
 		on_timer = function(pos, elapsed)
 			tnt.boom(pos, def)
 		end,

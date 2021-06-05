@@ -3,6 +3,12 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("xpanes")
 
+-- Check for Aliases for nodes external to module
+local glass = minetest.registered_aliases["mtg_basic_env_cook:glass"] or "mtg_basic_env_cook:glass"
+local ob_glass = minetest.registered_aliases["mtg_basic_env_cook:obsidian_glass"] or "mtg_basic_env_cook:obsidian_glass"
+local steel_ingot = minetest.registered_aliases["mtg_basic_env_cook:steel_ingot"] or "mtg_basic_env_cook:steel_ingot"
+
+
 
 local function is_pane(pos)
 	return minetest.get_item_group(minetest.get_node(pos).name, "pane") > 0
@@ -116,7 +122,7 @@ function xpanes.register_pane(name, def)
 		groups = flatgroups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha and "blend" or "clip",
+		use_texture_alpha = def.use_texture_alpha or false,
 		node_box = {
 			type = "fixed",
 			fixed = {{-1/2, -1/2, -1/32, 1/2, 1/2, 1/32}},
@@ -145,7 +151,7 @@ function xpanes.register_pane(name, def)
 		groups = groups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha and "blend" or "clip",
+		use_texture_alpha = def.use_texture_alpha or false,
 		node_box = {
 			type = "connected",
 			fixed = {{-1/32, -1/2, -1/32, 1/32, 1/2, 1/32}},
@@ -168,11 +174,11 @@ xpanes.register_pane("pane", {
 	textures = {"default_glass.png", "", "xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
-	sounds = default.node_sound_glass_defaults(),
+	sounds = mtg_basic_sounds.node_sound_glass(),
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3},
 	recipe = {
-		{"default:glass", "default:glass", "default:glass"},
-		{"default:glass", "default:glass", "default:glass"}
+		{glass, glass, glass},
+		{glass, glass, glass}
 	}
 })
 
@@ -181,11 +187,11 @@ xpanes.register_pane("obsidian_pane", {
 	textures = {"default_obsidian_glass.png", "", "xpanes_edge_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
-	sounds = default.node_sound_glass_defaults(),
+	sounds = mtg_basic_sounds.node_sound_glass(),
 	groups = {snappy=2, cracky=3},
 	recipe = {
-		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"},
-		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"}
+		{ob_glass, ob_glass, ob_glass},
+		{ob_glass, ob_glass, ob_glass}
 	}
 })
 
@@ -195,10 +201,10 @@ xpanes.register_pane("bar", {
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
 	groups = {cracky=2},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = mtg_basic_sounds.node_sound_metal(),
 	recipe = {
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"}
+		{steel_ingot, steel_ingot, steel_ingot},
+		{steel_ingot, steel_ingot, steel_ingot}
 	}
 })
 
@@ -224,11 +230,9 @@ if minetest.get_modpath("doors") then
 		inventory_image = "xpanes_item_steel_bar.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = mtg_basic_sounds.node_sound_metal(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
-		gain_open = 0.15,
-		gain_close = 0.13,
 		recipe = {
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
@@ -244,11 +248,9 @@ if minetest.get_modpath("doors") then
 		tile_side = "xpanes_trapdoor_steel_bar_side.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2, door = 1},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = mtg_basic_sounds.node_sound_metal(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
-		gain_open = 0.15,
-		gain_close = 0.13,
 	})
 
 	minetest.register_craft({
